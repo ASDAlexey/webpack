@@ -1,0 +1,13 @@
+{
+  "name": "webpack-course",
+  "version": "1.0.0",
+  "main": "home.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "babel-loader": "^6.1.0",
+    "webpack": "^1.12.6"
+  }
+}
