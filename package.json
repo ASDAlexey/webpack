@@ -10,6 +10,7 @@
     "babel-core": "^5.x",
     "babel-loader": "^5.x",
     "babel-runtime": "^6.1.18",
-    "webpack": "^1.12.6"
+    "bundle-loader": "^0.5.4",
+    "webpack": "1.12.6"
   }
 }

@@ -1,16 +1,21 @@
 'use strict';
 var NODE_ENV = process.env.NODE_ENV || 'development';
-var webpack = require('webpack');
+var webpack = require('webpack'),
+    path = require("path");
 module.exports = {
-    context: __dirname + "/frontend",//абсолютная директория ов которой ледат все модул и поиск производится относительно нее
+    context: path.join(__dirname,"frontend"),//абсолютная директория ов которой ледат все модул и поиск производится относительно нее
     entry: {
-        home: "./home",
-        about: "./about",
+        app2: "./app2",
+        //app: "./app",
+        //router: "./router",
+        //home: "./home",
+        //about: "./about",
         common: ["./welcome", "./common"]//при сборке в common.js будет все что было в нем + общего во всех точках входа кусочка сборки
     },
     output: {
-        path: __dirname + '/public',//абсолютный путь к директории сборки
+        path:path.join(__dirname,'/public/js/'),//абсолютный путь к директории сборки
         filename: "[name].js",
+        publicPath: "/webpack/public/js/", // url app.js будет /app.js или http://localhost:63342/webpack/public/js/
         library: "[name]"//для common получит экспорт последнего модуля, для остальных точек входа просто их по названию
     },
     watch: NODE_ENV == 'development',// webpack пересобирает с учетом кеша только те файлы которые изменились
@@ -28,7 +33,8 @@ module.exports = {
             name: "common",//имя нового общего во всех точках входа кусочка сборки
             chunks: ['about', 'home']//common - это общее из мобулей about и home
             //minChunks: 2//минимальное кол-во файлов в который есть общие куски кода для выноса в отдельный файл
-        })
+        }),
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru|en-gb/)
     ],
     //Поиск модулей
     resolve: {
@@ -37,8 +43,8 @@ module.exports = {
     },
     resolveLoader: {
         modulesDirectories: ['node_modules'],
-        moduleTemplates: ['*-loader', '*'],
-        extensions: ['', 'js']
+        moduleTemplates: ['*-loader', '*']
+       // extensions: ['', 'js']
     },
     module: {
         loaders: [
